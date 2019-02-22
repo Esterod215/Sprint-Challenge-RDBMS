@@ -39,6 +39,16 @@ server.get('/api/projects', async(req,res)=>{
       }
   });
 
+  server.post('/api/actions',async(req,res)=>{
+    try{
+      const [id]= await db('actions').insert(req.body);
+      const action = await db('actions').where({ id }).first();
+      res.status(201).json(action);
+    }catch(error){
+      res.status(500).json(error);
+      }
+  });
+
 
 const port = 3000;
 server.listen(port, function() {
